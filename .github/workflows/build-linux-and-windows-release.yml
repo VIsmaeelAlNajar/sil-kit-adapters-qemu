@@ -10,6 +10,8 @@ jobs:
     name: Build SIL Kit QEMU for Release configuration
     environment: public-github-runners
     runs-on: ubuntu-20.04
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
