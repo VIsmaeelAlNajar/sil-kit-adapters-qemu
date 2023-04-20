@@ -97,6 +97,7 @@ add_subdirectory(chardev/demos)
 install(
     DIRECTORY            
         ${CMAKE_CURRENT_SOURCE_DIR}/adapter            
+
     DESTINATION .
     COMPONENT source
     REGEX "\.git$" EXCLUDE
@@ -131,6 +132,7 @@ install(
 install(
     DIRECTORY
         ${SILKIT_ADAPTERS_QEMU_OUTPUT_DIRECTORY}
+
     DESTINATION build
     COMPONENT bin
 )
@@ -143,6 +145,7 @@ set(CPACK_GENERATOR "ZIP")
 
 set(CPACK_PACKAGE_DESCRIPTION "binary release of SIL Kit Adapters QEMU")
 set(CPACK_PACKAGE_NAME "SilKit-Adapters-QEMU")
+
 set(CPACK_PACKAGE_VENDOR "Vector Informatik")
 set(CPACK_PACKAGE_CONTACT "support@vector.com")
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}${PACKAGE_FILENAME_SUFFIX}")
