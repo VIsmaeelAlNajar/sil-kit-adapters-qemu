@@ -1,4 +1,4 @@
-name: 'Linux Release Build'
+name: 'Linux & Windows Release Build'
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 jobs:
-  linux-release:
+  release:
     name: Build SIL Kit QEMU for Release configuration
     environment: public-github-runners
     runs-on: ubuntu-20.04
@@ -15,12 +15,25 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true
-      - name: Build
+      - name: Linux Build
         uses: ./.github/actions/build-cmake-preset
         with:
           preset-name: linux-release
           cmake-args:  "-D PACKAGE_FILENAME_SUFFIX=-${{ github.ref_name }}-ubuntu-20.04-x86_64-gcc"
-      - name: Release
+      - name: Linux Release
+        uses: softprops/action-gh-release@v1        
+        with:
+          prerelease: true
+          draft: true
+          files: |
+            _build/linux-release/SilKit-Adapters*.zip
+
+      - name: Windows Build
+        uses: ./.github/actions/build-cmake-preset
+        with:
+          preset-name: x64-release
+          cmake-args:  "-D PACKAGE_FILENAME_SUFFIX=-${{ github.ref_name }}-Win-x86_64-VS2017"
+      - name: Windows Release
         uses: softprops/action-gh-release@v1        
         with:
           prerelease: true
