@@ -198,10 +198,6 @@
                 "CMAKE_BUILD_TYPE": "Release"
             }
         },
-        {
-            "name": "vs141-x64-release",
-            "inherits": ["mixin-release", "vs141-x64-debug"]
-        },
          {
             "name": "vs140-x86-debug",
             "inherits": ["mixin-windows", "mixin-dirs", "mixin-ninja" , "mixin-arch-x86", "mixin-toolset-v140", "mixin-debug", "mixin-werror"]
@@ -236,7 +232,6 @@
             "inherits": ["mixin-release", "vs141-x64-debug"]
         }        
     ],
-
     "buildPresets": [
         {
             "name": "linux-base",
