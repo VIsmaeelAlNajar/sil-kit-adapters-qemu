@@ -1,4 +1,4 @@
-name: 'Linux Release Build'
+name: 'Linux and Windows Release Build'
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   linux-release:
-    name: Build SIL Kit QEMU for Release configuration
+    name: Build SIL Kit QEMU for Linux Release configuration
     environment: public-github-runners
     runs-on: ubuntu-20.04
     steps:
@@ -15,16 +15,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true
-      - name: Linux Build
+      - name: Build
         uses: ./.github/actions/build-cmake-preset
         with:
           preset-name: linux-release
           cmake-args:  "-D PACKAGE_FILENAME_SUFFIX=-${{ github.ref_name }}-ubuntu-20.04-x86_64-gcc"
-      - name: Windows Build
-        uses: ./.github/actions/build-cmake-preset
-        with:
-          preset-name: vs141-x64-release
-          cmake-args:  "-D PACKAGE_FILENAME_SUFFIX=-${{ github.ref_name }}-Windows-x86_64-gcc"
       - name: Release
         uses: softprops/action-gh-release@v1        
         with:
@@ -32,6 +27,25 @@ jobs:
           draft: true
           files: |
             _build/linux-release/SilKit-Adapters*.zip
-            _build/windows-release/SilKit-Adapters*.zip
 
-          
+  windows-release:
+    name: Build SIL Kit QEMU for Windows Release configuration
+    runs-on: windows-latest
+    environment: public-github-runners
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Build
+        uses: ./.github/actions/build-cmake-preset
+        with:
+          preset-name: vs141-x64-release
+          cmake-args: "-D PACKAGE_FILENAME_SUFFIX=-${{ github.ref_name }}-win-x64-msvc"
+      - name: Release
+        uses: softprops/action-gh-release@v1        
+        with:
+          prerelease: true
+          draft: true
+          files: |
+            _build/vs141-x64-release/SilKit-Adapters*.zip
