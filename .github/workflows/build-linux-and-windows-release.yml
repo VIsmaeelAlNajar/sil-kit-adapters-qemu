@@ -23,7 +23,7 @@ jobs:
       - name: Windows Build
         uses: ./.github/actions/build-cmake-preset
         with:
-          preset-name: x64-release
+          preset-name: vs141-x64-release
           cmake-args:  "-D PACKAGE_FILENAME_SUFFIX=-${{ github.ref_name }}-Windows-x86_64-gcc"
       - name: Release
         uses: softprops/action-gh-release@v1        
