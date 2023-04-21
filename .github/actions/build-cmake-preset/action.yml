@@ -19,7 +19,7 @@ runs:
       id: setup-host-linux
       shell: bash
       
- - name: Setup host
+    - name: Setup host
       if: runner.os == 'Windows'
       run: choco install -y ninja
       id: setup-host-windows
