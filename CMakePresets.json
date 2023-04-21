@@ -41,6 +41,199 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }            
+        },
+        {
+            "name": "windows-base",
+            "description": "Target Windows with the Visual Studio development environment.",
+            "inherits": "base-env",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            },
+            "environment": {
+                "SILKIT_CMAKE_PRESET_BUILD_PLATFORM": "win"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "x64-debug",
+            "displayName": "x64 Debug",
+            "description": "Target Windows (64-bit) with the Visual Studio development environment. (Debug)",
+            "inherits": "windows-base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "environment": {
+                "SILKIT_CMAKE_PRESET_BUILD_TYPE": "Debug",
+                "SILKIT_CMAKE_PRESET_ARCHITECTURE": "x64"
+            }
+        },
+        {
+            "name": "x64-release",
+            "displayName": "x64 Release",
+            "description": "Target Windows (64-bit) with the Visual Studio development environment. (RelWithDebInfo)",
+            "inherits": "x64-debug",
+            "environment": {
+                "SILKIT_CMAKE_PRESET_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "x86-debug",
+            "displayName": "x86 Debug",
+            "description": "Target Windows (32-bit) with the Visual Studio development environment. (Debug)",
+            "inherits": "windows-base",
+            "architecture": {
+                "value": "x86",
+                "strategy": "external"
+            },
+            "environment": {
+                "SILKIT_CMAKE_PRESET_BUILD_TYPE": "Debug",
+                "SILKIT_CMAKE_PRESET_ARCHITECTURE": "x86"
+            }
+        },
+        {
+            "name": "x86-release",
+            "displayName": "x86 Release",
+            "description": "Target Windows (32-bit) with the Visual Studio development environment. (RelWithDebInfo)",
+            "inherits": "x86-debug",
+            "environment": {
+                "SILKIT_CMAKE_PRESET_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "mixin-ninja",
+            "description": "Use Ninja Generator",
+            "hidden": true,
+            "generator": "Ninja"
+        },
+        {
+            "name": "mixin-dirs",
+            "description": "Set default binary / install dirs",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/_build/${presetName}",
+            "installDir": "${sourceDir}/_install/${presetName}",
+            "vendor": {
+                "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+                    "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}",
+                    "rsyncCommandArgs": [ "--copy-links",  "--exclude", "_build" ]
+                }
+            }
+        },
+        {
+            "name": "mixin-windows",
+            "description": "Target Windows with the Visual Studio development environment.",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "mixin-toolset-v141",
+            "description": "Set MSVC toolset v141",
+            "hidden": true,
+            "cacheVariables": {
+                "SILKIT_REQUIRED_MSVC_TOOLSET_VERSION": "v141"
+            },
+            "toolset": {
+                "value": "v141",
+                "strategy": "external"
+            }
+        },
+        {
+            "name": "mixin-toolset-v140",
+            "description": "Set MSVC toolset v140",
+            "hidden": true,
+            "cacheVariables": {
+                "SILKIT_REQUIRED_MSVC_TOOLSET_VERSION": "v140"
+            },
+            "toolset": {
+                "value": "v140",
+                "strategy": "external"
+            }
+        },
+        {
+            "name": "mixin-arch-x64",
+            "description": "Set MSVC arch x64",
+            "hidden": true,
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            }
+        },
+        {
+            "name": "mixin-arch-x86",
+            "description": "Set MSVC arch x86",
+            "hidden": true,
+            "architecture": {
+                "value": "x86",
+                "strategy": "external"
+            }
+        },
+
+        {
+            "name": "mixin-debug",
+            "description": "CMake build type Debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "mixin-release",
+            "description": "CMake build type Release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "vs141-x64-release",
+            "inherits": ["mixin-release", "vs141-x64-debug"]
+        },
+         {
+            "name": "vs140-x86-debug",
+            "inherits": ["mixin-windows", "mixin-dirs", "mixin-ninja" , "mixin-arch-x86", "mixin-toolset-v140", "mixin-debug", "mixin-werror"]
+        },
+        {
+            "name": "vs140-x86-release",
+            "inherits": [ "mixin-release", "vs140-x86-debug" ]
+        },
+        {
+            "name": "vs140-x64-debug",
+            "inherits": [ "mixin-arch-x64", "vs140-x86-debug"]
+        },
+        {
+            "name": "vs140-x64-release",
+            "inherits": [ "mixin-release","vs140-x64-debug"]
+        },
+
+        {
+            "name": "vs141-x86-debug",
+            "inherits": ["mixin-windows", "mixin-dirs", "mixin-ninja" , "mixin-arch-x86", "mixin-toolset-v141", "mixin-debug", "mixin-werror"]
+        },
+        {
+            "name": "vs141-x86-release",
+            "inherits": ["mixin-release","vs141-x86-debug"]
+        },
+        {
+            "name": "vs141-x64-debug",
+            "inherits": ["mixin-arch-x64", "vs141-x86-debug"]
+        },
+        {
+            "name": "vs141-x64-release",
+            "inherits": ["mixin-release", "vs141-x64-debug"]
         }        
     ],
 
@@ -54,7 +247,6 @@
                 "rhs": "Linux"
             }
         },
-
         {
             "name": "linux-debug",
             "inherits": "linux-base",
@@ -64,6 +256,67 @@
             "name": "linux-release",
             "inherits": "linux-base",
             "configurePreset": "linux-release"
+        },
+         {
+            "name": "windows-base",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+         {
+            "name": "x64-debug",
+            "inherits": "windows-base",
+            "configurePreset": "x64-debug"
+        },
+        {
+            "name": "x64-release",
+            "inherits": "windows-base",
+            "configurePreset": "x64-release"
+        },
+        {
+            "name": "x86-debug",
+            "inherits": "windows-base",
+            "configurePreset": "x86-debug"
+        },
+        {
+            "name": "x86-release",
+            "inherits": "windows-base",
+            "configurePreset": "x86-release"
+        },
+        {
+            "name": "vs140-x86-debug",
+            "configurePreset": "vs140-x86-debug"
+        },
+        {
+            "name": "vs140-x86-release",
+            "configurePreset": "vs140-x86-release"
+        },
+        {
+            "name": "vs140-x64-debug",
+            "configurePreset": "vs140-x64-debug"
+        },
+        {
+            "name": "vs140-x64-release",
+            "configurePreset": "vs140-x64-release"
+        },
+        {
+            "name": "vs141-x86-debug",
+            "configurePreset": "vs141-x86-debug"
+        },
+        {
+            "name": "vs141-x86-release",
+            "configurePreset": "vs141-x86-release"
+        },
+        {
+            "name": "vs141-x64-debug",
+            "configurePreset": "vs141-x64-debug"
+        },
+        {
+            "name": "vs141-x64-release",
+            "configurePreset": "vs141-x64-release"
         }
     ],
     "testPresets": [
@@ -76,7 +329,6 @@
                 "rhs": "Linux"
             }
         },
-
         {
             "name": "linux-debug",
             "inherits": "linux-base",
@@ -86,6 +338,67 @@
             "name": "linux-release",
             "inherits": "linux-base",
             "configurePreset": "linux-release"
+        },
+         {
+            "name": "windows-base",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "x64-debug",
+            "inherits": "windows-base",
+            "configurePreset": "x64-debug"
+        },
+        {
+            "name": "x64-release",
+            "inherits": "windows-base",
+            "configurePreset": "x64-release"
+        },
+        {
+            "name": "x86-debug",
+            "inherits": "windows-base",
+            "configurePreset": "x86-debug"
+        },
+        {
+            "name": "x86-release",
+            "inherits": "windows-base",
+            "configurePreset": "x86-release"
+        },
+        {
+            "name": "vs140-x86-debug",
+            "configurePreset": "vs140-x86-debug"
+        },
+        {
+            "name": "vs140-x86-release",
+            "configurePreset": "vs140-x86-release"
+        },
+        {
+            "name": "vs140-x64-debug",
+            "configurePreset": "vs140-x64-debug"
+        },
+        {
+            "name": "vs140-x64-release",
+            "configurePreset": "vs140-x64-release"
+        },
+        {
+            "name": "vs141-x86-debug",
+            "configurePreset": "vs141-x86-debug"
+        },
+        {
+            "name": "vs141-x86-release",
+            "configurePreset": "vs141-x86-release"
+        },
+        {
+            "name": "vs141-x64-debug",
+            "configurePreset": "vs141-x64-debug"
+        },
+        {
+            "name": "vs141-x64-release",
+            "configurePreset": "vs141-x64-release"
         }
     ]
 }
