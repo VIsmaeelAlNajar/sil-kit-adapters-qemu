@@ -109,7 +109,7 @@ install(
 
 install(
     DIRECTORY            
-        ${CMAKE_CURRENT_SOURCE_DIR}/eth            
+        ${CMAKE_CURRENT_SOURCE_DIR}/eth/adapter            
 
     DESTINATION .
     COMPONENT source
@@ -119,7 +119,7 @@ install(
 
 install(
     DIRECTORY            
-        ${CMAKE_CURRENT_SOURCE_DIR}/chardev            
+        ${CMAKE_CURRENT_SOURCE_DIR}/chardev/adapter           
 
     DESTINATION .
     COMPONENT source
