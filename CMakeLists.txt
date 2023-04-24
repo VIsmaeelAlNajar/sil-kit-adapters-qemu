@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 project(VectorSilKitAdaptersQemu)
 include(FetchContent)
 
+set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -109,7 +111,7 @@ install(
 
 install(
     DIRECTORY            
-        ${CMAKE_CURRENT_SOURCE_DIR}/eth/adapter            
+        ${CMAKE_CURRENT_SOURCE_DIR}/eth            
 
     DESTINATION .
     COMPONENT source
@@ -119,7 +121,7 @@ install(
 
 install(
     DIRECTORY            
-        ${CMAKE_CURRENT_SOURCE_DIR}/chardev/adapter           
+        ${CMAKE_CURRENT_SOURCE_DIR}/chardev           
 
     DESTINATION .
     COMPONENT source
