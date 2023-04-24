@@ -108,6 +108,26 @@ install(
 )
 
 install(
+    DIRECTORY            
+        ${CMAKE_CURRENT_SOURCE_DIR}/eth            
+
+    DESTINATION .
+    COMPONENT source
+    REGEX "\.git$" EXCLUDE
+    REGEX "\.github$" EXCLUDE    
+)
+
+install(
+    DIRECTORY            
+        ${CMAKE_CURRENT_SOURCE_DIR}/chardev            
+
+    DESTINATION .
+    COMPONENT source
+    REGEX "\.git$" EXCLUDE
+    REGEX "\.github$" EXCLUDE    
+)
+
+install(
     DIRECTORY
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party
     DESTINATION .
