@@ -1,4 +1,4 @@
-﻿{
+{
     "version": 3,
     "configurePresets": [
         {
@@ -28,16 +28,16 @@
         },
         {
             "name": "linux-debug",
-            "displayName": "Linux Debug",
-            "inherits": "linux-base",
+            "displayName": "Linux Debug",            
+            "inherits": "linux-base",            
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }            
         },
         {
             "name": "linux-release",
-            "displayName": "Linux Release",
-            "inherits": "linux-base",
+            "displayName": "Linux Release",            
+            "inherits": "linux-base",            
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -49,7 +49,7 @@
         "generator": "Ninja",
         "binaryDir": "${sourceDir}/_build/${presetName}",
         "installDir": "${sourceDir}/_install/${presetName}",
-        "cacheVariables": {                
+        "cacheVariables": {
             "SILKIT_VERSION": "4.0.17",
             "SILKIT_FLAVOR": "Win-x86_64-VS2017"
         },
